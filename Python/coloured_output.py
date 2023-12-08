@@ -11,7 +11,6 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
     BLINK = '\033[6m'
-
 def output(message, level="info"):
     #set-up the header that will be added to each message
     timestamp_now = datetime.now(UTC)
@@ -22,4 +21,9 @@ def output(message, level="info"):
     match level:
         case "info":
             header_level = f"{bcolors.ENDC}[{bcolors.OKGREEN}INFO{bcolors.ENDC}] "
-            print(f"{header}{header_level}{bcolors.ENDC}{message}")
+        case "warning":
+            header_level = f"{bcolors.ENDC}[{bcolors.WARNING}WARNING{bcolors.ENDC}] "
+        case "critical" | "fail":
+            header_level = f"{bcolors.ENDC}[{bcolors.FAIL}CRITICAL{bcolors.ENDC}] "
+
+    print(f"{header}{header_level}{bcolors.ENDC}{message}")
